@@ -115,6 +115,7 @@ public:
 	bool showInspector = true;
 	bool showConsole = true;
 	bool showAbout = false;
+	bool showHierarchy = true;
 
 	//Inspector booleans
 	bool showCubeDirectMode = false;

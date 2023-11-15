@@ -179,6 +179,27 @@ update_status ModuleEditor::PostUpdate(float dt)
         ImGui::End();
 
         //==============================================================================================================================================================
+        if (showHierarchy)
+        {
+            ImGui::Begin("Hierarchy", &showHierarchy, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_MenuBar);
+            if (ImGui::BeginMenuBar())
+            {
+                if (ImGui::BeginMenu("Menu"))
+                {
+                    if (ImGui::MenuItem("Settings"))
+                    {
+
+                    }
+                    ImGui::EndMenu();
+                }
+                ImGui::EndMenuBar();
+            }
+            ImGui::Text("GameObjects: \n");
+           //Aqui hay que crear una funcion pero hacen falta los game objects
+
+            ImGui::End();
+        }
+        //==============================================================================================================================================================
 
         //ImGui Render Window
         if (showScene)
