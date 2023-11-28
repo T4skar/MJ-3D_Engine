@@ -177,7 +177,7 @@ update_status ModuleEditor::PostUpdate(float dt)
                     playPressed = false;
 
                    
-                    //App->scene->LoadSceneAtPlay();
+                    //Aqui hay que enviar a que se cargue la escena
 
                     std::string folder_name = "Settings/scene_at_play.json";
 
@@ -192,7 +192,7 @@ update_status ModuleEditor::PostUpdate(float dt)
                     
                     playPressed = true;
                     
-                    //App->scene->SaveSceneAtPlay();
+                    //Aqui hay que enviar a que se guarde la escena
                 }
             }
 
