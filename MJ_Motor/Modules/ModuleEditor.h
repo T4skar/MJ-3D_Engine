@@ -131,6 +131,10 @@ public:
 	//Input booleans
 	bool activateDragAndDrop = true;
 
+	//Play and pause booleans
+	bool playPressed;
+	bool pausePressed;
+
 	//Basic Shapes file paths
 	const char* cube_file_path = "Assets/BasicShapes/cube.fbx";
 	const char* sphere_file_path = "Assets/BasicShapes/sphere.fbx";

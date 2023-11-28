@@ -168,6 +168,48 @@ update_status ModuleEditor::PostUpdate(float dt)
                 ImGui::EndMenu();
             }
 
+            if (ImGui::Button("Play"))
+            {
+                if (playPressed == true) {
+                    
+                   
+                    pausePressed = false;
+                    playPressed = false;
+
+                   
+                    //App->scene->LoadSceneAtPlay();
+
+                    std::string folder_name = "Settings/scene_at_play.json";
+
+                    if (remove(folder_name.c_str()) == 0)
+                    {
+                        LOG("Save At Play file removed");
+                    }
+
+
+                }
+                else {
+                    
+                    playPressed = true;
+                    
+                    //App->scene->SaveSceneAtPlay();
+                }
+            }
+
+            if (ImGui::Button("Pause"))
+            {
+                if (pausePressed == true) {
+
+                    pausePressed = false;
+
+                }
+                else {
+
+                    pausePressed = true;
+
+                }
+            }
+
             ImGui::EndMenuBar();
         }
 
