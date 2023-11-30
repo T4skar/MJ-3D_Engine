@@ -5,6 +5,10 @@
 
 #include "ModuleRenderer3D.h"
 
+
+std::map<uint, GameObject*> ModuleEditor::gameObjects;
+
+
 ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 
@@ -238,6 +242,7 @@ update_status ModuleEditor::PostUpdate(float dt)
             }
             ImGui::Text("GameObjects: \n");
            //Aqui hay que crear una funcion pero hacen falta los game objects
+            DisplayGameObjects(gameObjects[0]);
 
             ImGui::End();
         }
@@ -363,6 +368,7 @@ void ModuleEditor::ImGuiInspectorWindow()
         ImGui::Checkbox("Cull Face", &activateCullFace);
         ImGui::Checkbox("Lightning", &activateLighting);
         ImGui::Checkbox("Color Material", &activateColorMaterial);
+        ImGui::Checkbox("Show AABB", &show_AABB); //need revision
 
         ImGui::Text("\n");
 
@@ -475,4 +481,50 @@ void ModuleEditor::ImGuiLicenseWindow()
     ImGui::Text("\n");
 
     ImGui::End();
+}
+
+
+void ModuleEditor::DisplayGameObjects(GameObject* game_object)
+{
+    ImGuiTreeNodeFlags TreeFlags = ImGuiTreeNodeFlags_OpenOnArrow;
+    TreeFlags |= ImGuiTreeNodeFlags_DefaultOpen;
+
+
+
+    if (game_object == gameobject_selected)
+    {
+        TreeFlags |= ImGuiTreeNodeFlags_Selected;
+    }
+    if (game_object->GetChildren().empty())
+    {
+        TreeFlags |= ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
+        ImGui::TreeNodeEx(game_object->name.c_str(), TreeFlags);
+
+        if (ImGui::IsItemHovered() && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
+        {
+            gameobject_selected = game_object;
+        }
+    }
+    else
+    {
+        if (ImGui::TreeNodeEx(game_object->name.c_str(), TreeFlags))
+        {
+            if (ImGui::IsItemHovered() && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
+            {
+                gameobject_selected = game_object;
+            }
+            for (size_t i = 0; i < game_object->GetChildren().size(); i++)
+            {
+                DisplayGameObjects(game_object->GetChild(i));
+            }
+            ImGui::TreePop();
+        }
+    }
+
+}
+uint ModuleEditor::CreateGameObject(GameObject* parent, std::string name)
+{
+    GameObject* Go = new GameObject(parent, name);
+
+    return Go->id;
 }

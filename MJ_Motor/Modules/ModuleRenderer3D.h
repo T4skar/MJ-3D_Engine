@@ -71,6 +71,8 @@ public:
     //Render Buffer Id
     uint rboDepthStencil;
 
+    uint id_count = 0;
+
     const char* file_path = "Assets/BakerHouse/BakerHouse.fbx";
 
     //Chekers Texture

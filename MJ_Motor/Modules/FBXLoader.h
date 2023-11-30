@@ -8,6 +8,8 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 
+#include "MathGeoLib/include/MathGeoLib.h"
+
 //It has 5 vertex features for x,y,z,u,v
 #define VERTEX_FEATURES 5
 
@@ -31,10 +33,22 @@ struct MeshStorer
 	float* vertex = nullptr;
 	GLuint id_texture;
 
+	uint ID;
+
 	const char* bakerHouseTexPath = "Assets/BakerHouse/Baker_house.png";
 
+	bool localAABB_init = false;
+	AABB localAABB;
+	AABB globalAABB;
+	OBB globalOBB;
+
 	//Methods
+	void GenerateGlobalBoundingBox();
+	void GenerateLocalBoundingBox();
+
 	void RenderOneMesh();
+	void RenderMesh(const GLfloat* globalTransform, uint texID);
+	void RenderAABB();
 
 };
 

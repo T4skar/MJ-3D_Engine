@@ -1,6 +1,8 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
+#include"GameObject.h"
+
 #include "ImGui/imgui.h"
 #include "ImGui/imgui_impl_sdl2.h"
 #include "ImGui/imgui_impl_opengl3.h"
@@ -97,6 +99,7 @@ public:
 
 	SDL_GLContext context;
 
+
 	bool Start();
 	bool Init();
 	void DrawEditor();
@@ -104,11 +107,20 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
+	void DisplayGameObjects(GameObject* game_object);
+
 	//ImGui Windows
 	void ImGuiRenderWindow();
 	void ImGuiInspectorWindow();
 	void ImGuiCreditsWindow();
 	void ImGuiLicenseWindow();
+
+	//GameObjects
+	uint CreateGameObject(GameObject* parent, std::string name);
+
+	GameObject* gameobject_selected = nullptr;
+	static std::map<uint, GameObject*> gameObjects;
+
 
 	//ImGui Tool Bar Window Booleans
 	bool showScene = true;
@@ -116,6 +128,8 @@ public:
 	bool showConsole = true;
 	bool showAbout = false;
 	bool showHierarchy = true;
+	bool showCameraWindow = true;
+	bool show_AABB = true;
 
 	//Inspector booleans
 	bool showCubeDirectMode = false;

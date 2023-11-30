@@ -300,13 +300,22 @@
     <ClInclude Include="Modules\TexLoader.h">
       <Filter>Sources\FBX</Filter>
     </ClInclude>
+    <ClInclude Include="Modules\C_Camera.h">
+      <Filter>Sources\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\C_Mesh.h">
+      <Filter>Sources\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\C_Texture.h">
+      <Filter>Sources\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\C_Transform.h">
+      <Filter>Sources\Components</Filter>
+    </ClInclude>
     <ClInclude Include="Modules\Component.h">
       <Filter>Sources\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Modules\Gameobject.h">
-      <Filter>Sources\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Modules\Transform.h">
+    <ClInclude Include="Modules\GameObject.h">
       <Filter>Sources\Components</Filter>
     </ClInclude>
   </ItemGroup>
@@ -473,13 +482,22 @@
     <ClCompile Include="Modules\TexLoader.cpp">
       <Filter>Sources\FBX</Filter>
     </ClCompile>
+    <ClCompile Include="Modules\C_Camera.cpp">
+      <Filter>Sources\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\C_Mesh.cpp">
+      <Filter>Sources\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\C_Texture.cpp">
+      <Filter>Sources\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\C_Transform.cpp">
+      <Filter>Sources\Components</Filter>
+    </ClCompile>
     <ClCompile Include="Modules\Component.cpp">
       <Filter>Sources\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Modules\Gameobject.cpp">
-      <Filter>Sources\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Modules\Transform.cpp">
+    <ClCompile Include="Modules\GameObject.cpp">
       <Filter>Sources\Components</Filter>
     </ClCompile>
   </ItemGroup>

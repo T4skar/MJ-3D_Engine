@@ -35,6 +35,8 @@ bool Application::Init()
 {
 	bool ret = true;
 
+	App = this;
+
 	// Call Init() in all modules
 	for (std::vector<Module*>::const_iterator it = list_modules.cbegin(); it != list_modules.cend() && ret; ++it)
 	{
@@ -103,3 +105,5 @@ void Application::AddModule(Module* mod)
 {
 	list_modules.push_back(mod);
 }
+
+Application* App = nullptr;

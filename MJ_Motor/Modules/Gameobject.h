@@ -2,7 +2,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "Component.h"
-#include "Transform.h"
+#include "C_Transform.h"
 
 #include <iostream>
 #include <string>
@@ -11,11 +11,11 @@
 
 using namespace std;
 
-class Gameobject
+class GameObject
 {
 public:
-	Gameobject(Gameobject* parent, std::string name);
-	//~GameObject();
+	GameObject(GameObject* parent, std::string name);
+	~GameObject();
 
 	void Update();
 	Component* CreateComponent(Component::TYPE);
@@ -33,7 +33,7 @@ public:
 
 	bool AddChild(GameObject* child);
 
-	Transform* transform = nullptr;
+	C_Transform* transform = nullptr;
 
 	bool active;
 	string name;
