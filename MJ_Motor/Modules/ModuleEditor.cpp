@@ -325,6 +325,20 @@ void ModuleEditor::ImGuiRenderWindow()
     float width = ImGui::GetContentRegionAvail().x;
     float height = width * (9.0f / 16.0f);
     ImGui::Image((ImTextureID)App->renderer3D->texColorBuffer, ImVec2(width, height), ImVec2(0, 1), ImVec2(1, 0));
+
+   /* if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN && ImGui::IsWindowHovered())
+    {
+
+        ImVec2 position = ImGui::GetMousePos();
+        ImVec2 normal = App->camera->Normalize(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y + ImGui::GetFrameHeight(), ImGui::GetWindowSize().x, ImGui::GetWindowSize().y - ImGui::GetFrameHeight(), position);
+        normal.x = (normal.x - 0.5f) / 0.5f;
+        normal.y = -((normal.y - 0.5f) / 0.5f);
+
+        LineSegment picking = App->camera->frustum.UnProjectLineSegment(normal.x, normal.y);
+       
+       
+    }*/
+
     ImGui::End();
 }
 
