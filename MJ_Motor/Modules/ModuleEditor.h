@@ -111,6 +111,7 @@ public:
 
 	//ImGui Windows
 	void ImGuiRenderWindow();
+	void ImGuiMainWindow();
 	void ImGuiInspectorWindow();
 	void ImGuiCreditsWindow();
 	void ImGuiLicenseWindow();
@@ -124,6 +125,7 @@ public:
 
 	//ImGui Tool Bar Window Booleans
 	bool showScene = true;
+	bool showMain = true;
 	bool showInspector = true;
 	bool showConsole = true;
 	bool showAbout = false;

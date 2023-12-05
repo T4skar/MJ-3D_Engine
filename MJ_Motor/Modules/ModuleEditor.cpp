@@ -117,6 +117,12 @@ update_status ModuleEditor::PostUpdate(float dt)
             {
                 ImGui::Text("\n");
 
+
+                if (ImGui::MenuItem(" Main"))
+                    showMain = !showMain;
+
+                ImGui::Text("\n");
+
                 if (ImGui::MenuItem(" Scene"))
                     showScene = !showScene;
 
@@ -225,6 +231,7 @@ update_status ModuleEditor::PostUpdate(float dt)
         ImGui::End();
 
         //==============================================================================================================================================================
+        //HIERARCHY WINDOW
         if (showHierarchy)
         {
             ImGui::Begin("Hierarchy", &showHierarchy, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_MenuBar);
@@ -247,6 +254,12 @@ update_status ModuleEditor::PostUpdate(float dt)
             ImGui::End();
         }
         //==============================================================================================================================================================
+
+        //ImGui Main Window
+        if (showMain) 
+        {
+            ImGuiMainWindow();
+        }
 
         //ImGui Render Window
         if (showScene)
@@ -342,10 +355,117 @@ void ModuleEditor::ImGuiRenderWindow()
     ImGui::End();
 }
 
+void ModuleEditor::ImGuiMainWindow() 
+{
+
+    ImGui::Begin("Main", NULL, ImGuiWindowFlags_AlwaysAutoResize);
+
+    //ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+
+    //ImGui::Checkbox("CubeDirectMode", &showCubeDirectMode);
+
+    ImGui::Text("Basic Shapes");
+
+    if (ImGui::Button("Cube"))
+    {
+        FBXLoader::FileLoader(cube_file_path);
+    }
+    ImGui::SameLine();
+    if (ImGui::Button("Sphere"))
+    {
+        FBXLoader::FileLoader(sphere_file_path);
+    }
+    ImGui::SameLine();
+    if (ImGui::Button("Cone"))
+    {
+        FBXLoader::FileLoader(cone_file_path);
+    }
+    ImGui::SameLine();
+    if (ImGui::Button("Cylinder"))
+    {
+        FBXLoader::FileLoader(cylinder_file_path);
+    }
+
+    ImGui::Checkbox("Checkers Cube", &showCubeCheckers);
+
+    ImGui::Text("\n");
+
+    if (ImGui::CollapsingHeader("Modules", NULL, ImGuiTreeNodeFlags_DefaultOpen))
+    {
+        ImGui::Text("Renderer:");
+        ImGui::Checkbox("VSYNC", &activateVSYNC);
+        ImGui::SameLine();
+        ImGui::Checkbox("Depth Test", &activateDepthTest);
+        ImGui::Checkbox("Cull Face", &activateCullFace);
+        ImGui::SameLine();
+        ImGui::Checkbox("Lightning", &activateLighting);
+        ImGui::Checkbox("Color Material", &activateColorMaterial);
+        ImGui::SameLine();
+        ImGui::Checkbox("Show AABB", &show_AABB); //need revision
+
+        ImGui::Text("\n");
+
+        ImGui::Text("Input:");
+        ImGui::Checkbox("Drag&Drop", &activateDragAndDrop);
+
+        ImGui::Text("\n");
+    }
+
+    if (ImGui::CollapsingHeader("Information"))
+    {
+        //Software versions
+        ImGui::Text("Software Versions");
+        ImGui::Text("SDL: 2.0");
+        ImGui::Text("OpenGL: 3.1.0");
+        ImGui::Text("Glew: 2.1.0");
+        ImGui::Text("ImGui: 1.89.9");
+        ImGui::Text("Assimp: 5.3.1");
+        ImGui::Text("DevIl: 7.0");
+        ImGui::Text("MathGeoLib: 2.0");
+
+        ImGui::Text("\n");
+
+        //Hardware Detection
+        ImGui::Text("System");
+        ImGui::Text("CPU cores:%d", SDL_GetCPUCount());
+        ImGui::Text("RAM:%dGB", (SDL_GetSystemRAM()) / 1000);
+
+        ImGui::Text("\n");
+
+        //FPS Graph
+        ImGui::Text("FPS Graph");
+        char title[25];
+        sprintf_s(title, 25, "Framerate %1.1f", fps_log[fps_log.size() - 1]);
+        ImGui::PlotHistogram("##framerate", &fps_log[0], fps_log.size(), 0, title, 0.0f, 100.0f, ImVec2(210, 70));
+        sprintf_s(title, 25, "Milliseconds %0.1f", ms_log[ms_log.size() - 1]);
+        ImGui::PlotHistogram("##millisconds", &ms_log[0], ms_log.size(), 0, title, 0.0f, 40.0f, ImVec2(210, 70));
+    }
+
+    ImGui::End();
+}
+
+// -----------------------------------------------------------------        
+
+
 // -----------------------------------------------------------------        
 void ModuleEditor::ImGuiInspectorWindow()
 {
-    ImGui::Begin("Inspector", NULL, ImGuiWindowFlags_AlwaysAutoResize);
+    if (showInspector)
+    {
+        ImGui::Begin("Inspector", &showInspector, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_MenuBar);
+        if (App->editor->gameobject_selected != NULL)
+        {
+            for (size_t i = 0; i < App->editor->gameobject_selected->GetComponents().size(); i++)
+            {
+                App->editor->gameobject_selected->GetComponentByNum(i)->OnGui();
+
+            }
+        }
+
+        ImGui::End();
+
+    }
+    /*ImGui::Begin("Inspector", NULL, ImGuiWindowFlags_AlwaysAutoResize);
 
     //ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
 
@@ -423,6 +543,7 @@ void ModuleEditor::ImGuiInspectorWindow()
     }
 
     ImGui::End();
+    */
 }
 
 // -----------------------------------------------------------------        
