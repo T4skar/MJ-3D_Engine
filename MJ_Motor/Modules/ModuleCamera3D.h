@@ -1,7 +1,8 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
-#include "glmath.h"
+#include "MathGeoLib/include/Math/float3.h"
+#include "MathGeoLib/include/Math/float4x4.h"
 
 
 class ModuleCamera3D : public Module
@@ -19,17 +20,19 @@ public:
 	void Move(const float3& Movement);
 	float* GetViewMatrix();
 
-	//ImVec2 Normalize(float x, float y, float w, float h, ImVec2 point);
-
 	bool firstPersonView = false;
+
+private:
 
 	void CalculateViewMatrix();
 
 public:
 
-	// You won't need this after using Frustum
-	vec3 X, Y, Z, Position, Reference;
-	Frustum frustum;
-	float4x4 ViewMatrix;
-	float3 reference;
+	//You won't need this after using Frustum
+	float3 X, Y, Z, Position, Reference;
+
+private:
+
+	mat4x4 ViewMatrix;
+	//Frustum mMainCamera; Some help here :)
 };
