@@ -148,6 +148,17 @@ bool ModuleRenderer3D::Init()
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, context);
 	ImGui_ImplOpenGL3_Init("#version 130");
 
+
+	float3 pos(0, 0, 0);
+	float3 scale(1, 1, 1);
+	Quat rot(0, 0, 0, 0);
+
+	Root = new GameObject(NULL, "World");
+
+
+	App->editor->gameObjects[0] = Root;
+	dynamic_cast<C_Transform*>(Root->GetComponent(Component::TYPE::TRANSFORM))->SetTransform(pos, rot, scale);
+
 	//==============================================================================================================================================================
 
 	//Frame Buffer
@@ -167,6 +178,12 @@ bool ModuleRenderer3D::Init()
 	//FBXLoader::FileLoader(file_path, &myMesh);
 
 	return ret;
+}
+
+bool ModuleRenderer3D::Start()
+{
+	
+	return false;
 }
 
 // PreUpdate: clear buffer
@@ -196,7 +213,8 @@ update_status ModuleRenderer3D::Update(float dt) {
 	
 	Grid.Render();
 
-	FBXLoader::RenderAll();
+
+	//FBXLoader::RenderAll();
 
 	//Show Checkers Cube with CheckBox
 	if (App->editor->showCubeCheckers)

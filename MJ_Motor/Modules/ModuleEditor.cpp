@@ -60,6 +60,12 @@ update_status ModuleEditor::Update(float dt)
     PushLog(&fps_log, FPS);
     PushLog(&ms_log, MS);
 
+    //GameObject's Components Updated
+    for (auto& gameObject : gameObjects)
+    {
+        gameObject.second->Update();
+    }
+
 	return UPDATE_CONTINUE;
 }
 

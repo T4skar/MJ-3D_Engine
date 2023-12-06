@@ -1,13 +1,11 @@
-#include "Assimp/include/cimport.h"
-#include "Assimp/include/scene.h"
-#include "Assimp/include/postprocess.h"
-#pragma comment (lib, "Assimp/libx86/assimp.lib")
+
 
 #include "FBXLoader.h"
 #include "Application.h"
 #include "TexLoader.h"
 
-
+#include "GameObject.h"
+#include "C_Mesh.h"
 
 vector <MeshStorer*>FBXLoader::meshesVector; 
 
@@ -22,14 +20,14 @@ void FBXLoader::Debug()
 void FBXLoader::FileLoader(const char* file_path)
 {
 	const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
-
+	
 
 
 	if (scene != nullptr && scene -> HasMeshes())
 	{
 
 		GameObject* FbxGameObject = new GameObject(App->editor->gameObjects[0], file_path);
-
+		GetNodeInfo(scene, scene->mRootNode, FbxGameObject);
 
 		for (int i = 0; i < scene->mRootNode->mNumChildren; i++)
 		{
@@ -77,6 +75,10 @@ void FBXLoader::FileLoader(const char* file_path)
 
 			ourMesh->ID = App->editor->CreateGameObject(FbxGameObject, scene->mRootNode->mChildren[i]->mName.C_Str());
 
+			//Mesh
+			dynamic_cast<C_Mesh*>(App->editor->gameObjects[ourMesh->ID]->CreateComponent(Component::TYPE::MESH))->SetMesh(ourMesh, scene->mRootNode->mChildren[i]->mName.C_Str());
+			GetNodeInfo(scene, scene->mRootNode->mChildren[i], App->editor->gameObjects[ourMesh->ID]);
+
 			//Load Texture
 			ourMesh->id_texture = TexLoader::LoadTexture(ourMesh->bakerHouseTexPath);
 
@@ -101,7 +103,7 @@ void FBXLoader::RenderAll()
 {
 	for (int i = 0; i < meshesVector.size(); i++) 
 	{
-		meshesVector[i]->RenderOneMesh();
+		meshesVector[i]->RenderOneMesh(/*meshesVector[i]->cMesh->go->transform->GetGlobalTransposed(), meshesVector[i]->id_texture */ );
 	}
 }
 
@@ -121,10 +123,14 @@ void MeshStorer::RenderOneMesh()
 	glTexCoordPointer(2, GL_FLOAT, sizeof(float) * VERTEX_FEATURES, (void*)(3 * sizeof(float)));
 	glNormalPointer(GL_FLOAT, sizeof(float) * VERTEX_FEATURES, NULL);
 
+	
+
 	glDrawElements(GL_TRIANGLES,            // primitive type
 		num_index,                      // # of indices
 		GL_UNSIGNED_INT,         // data type
 		(void*)0);
+
+
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisableClientState(GL_VERTEX_ARRAY);  // disable vertex arrays
@@ -148,6 +154,29 @@ void FBXLoader::GenerateMeshBuffer(MeshStorer* ourMesh)
 	//Close Mesh Buffer
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+
+void FBXLoader::GetNodeInfo(const aiScene* rootScene, aiNode* rootNode, GameObject* GameObgectFather)
+{
+	if (GameObgectFather->name == "Mesh.025")
+	{
+		int y = 0;
+	}
+	aiVector3D translation, scaling;
+	aiQuaternion quatRot;
+	rootNode->mTransformation.Decompose(scaling, quatRot, translation);
+
+	float3 pos(translation.x, translation.y, translation.z);
+	float3 scale(scaling.x, scaling.y, scaling.z);
+
+	if (rootNode == rootScene->mRootNode)
+	{
+		scale *= 100;
+	}
+
+	Quat rot(quatRot.x, quatRot.y, quatRot.z, quatRot.w);
+
+	dynamic_cast<C_Transform*>(GameObgectFather->GetComponent(Component::TYPE::TRANSFORM))->SetTransform(pos / 100, rot, scale / 100);
 }
 
 

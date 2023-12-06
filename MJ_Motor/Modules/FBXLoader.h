@@ -8,12 +8,21 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 
+#include "Assimp/include/cimport.h"
+#include "Assimp/include/scene.h"
+#include "Assimp/include/postprocess.h"
+#pragma comment (lib, "Assimp/libx86/assimp.lib")
+
+
+
 #include "MathGeoLib/include/MathGeoLib.h"
 
 //It has 5 vertex features for x,y,z,u,v
 #define VERTEX_FEATURES 5
 
 using namespace std;
+
+class GameObject;
 
 struct MeshStorer
 {
@@ -42,6 +51,7 @@ struct MeshStorer
 	AABB globalAABB;
 	OBB globalOBB;
 
+
 	//Methods
 	void GenerateGlobalBoundingBox();
 	void GenerateLocalBoundingBox();
@@ -63,6 +73,7 @@ public:
 	static void CleanUp();
 
 	static void GenerateMeshBuffer(MeshStorer* ourMesh);
+	static void GetNodeInfo(const aiScene* rootScene, aiNode* rootNode, GameObject* GameObgectFather);
 
 	static vector <MeshStorer*> meshesVector;
 };

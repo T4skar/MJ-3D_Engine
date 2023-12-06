@@ -73,7 +73,7 @@ void C_Transform::Update()
 
 
 
-	if (this->go->id > 1)
+	if (this->go->id > 0)
 	{
 		if (this->go->parent != nullptr)
 		{

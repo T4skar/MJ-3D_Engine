@@ -8,6 +8,9 @@
 #include "ImGui/imgui_impl_opengl3.h"
 
 #include <vector>
+#include <map>
+
+using namespace std;
 
 struct Console
 {
