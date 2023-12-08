@@ -16,31 +16,39 @@ public:
 	C_Camera(GameObject* gameObject);
 	~C_Camera();
 
-	void Update();
+	void SetCam();
+	void InitFrameBuffer();
+
+	float* GetViewMatrix();
+	float* GetProjectionMatrix();
+
+	void LookAt(const float3& target);
+
+	void TransformCam();
 
 	void OnGui();
 
-	void Move(const float3& Movement);
 
+	Frustum frustum;
+	float3 reference;
 
-	void InitFrameBuffer();
+	int typeCameraSelected = 0;
 
+	int cameraFOV = 100;
+	float farDistance = 500.0f;
+	float nearDistance = 0.1f;
+	int printCount;
 
+	bool isMainCamera = false;
 
-	Frustum frustum2;
-	float4x4 viewMatrix2;
-	float4x4 projectionMatrix2;
-	float3 reference2;
+	unsigned int cameraBuffer;
+	unsigned int frameBuffer;
 
-	vec3 X, Y, Z, Position, Reference;
+	float4x4 viewMatrix;
+	float4x4 projectionMatrix;
 
-	float nearPlaneDistance2 = 0.1f;
-	float farPlaneDistance2 = 500.f;
+private:
 
-	unsigned int textureColorbuffer_mini;
-	unsigned int framebuffer_mini;
-	unsigned int renderbuffer_mini;
+	unsigned int renderObjBuffer;
 
-	int width = SCREEN_WIDTH;
-	int height = SCREEN_HEIGHT;
 };
