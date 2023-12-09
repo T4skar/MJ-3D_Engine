@@ -93,6 +93,8 @@ float* C_Camera::GetProjectionMatrix()
 	return projectionMatrix.ptr();
 }
 
+
+
 void C_Camera::LookAt(const float3& target)
 {
 	frustum.front = (target - frustum.pos).Normalized();

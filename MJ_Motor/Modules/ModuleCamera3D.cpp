@@ -45,55 +45,50 @@ bool ModuleCamera3D::CleanUp()
 // -----------------------------------------------------------------
 update_status ModuleCamera3D::Update(float dt)
 {
-	// Implement a debug camera with keys and mouse
-	// Now we can make this movememnt frame rate independant!
-
 	float3 newPos(0, 0, 0);
-	float speed = 10.0f * dt;
+	float speed = 20.0f * dt;
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
-		speed = 8.0f * dt;
+		speed = 40.0f * dt;
 
-	//Center camera to origin
-	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+	//Focus on the origin
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) LookAt(float3(0, 0, 0));
+
+	// CAMERA ZOOM 
+	//Zoom with mouseWheel
+	if (App->input->GetMouseZ() != 0) newPos -= Z * (speed * 10) * App->input->GetMouseZ();
+
+	//Zoom with Alt + Right Click
+	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
 	{
-		LookAt(float3(0, 0, 0));
+		int dx = -App->input->GetMouseXMotion();
+		int dy = -App->input->GetMouseYMotion();
+
+
+		if (dx != 0)
+		{
+			newPos -= Z * (speed * 2) * App->input->GetMouseXMotion();
+		}
+		else if (dy != 0)
+		{
+			newPos -= Z * (speed * 2) * App->input->GetMouseYMotion();
+		}
 	}
 
-	//Set camera in First Person
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-	{
-		firstPersonView = !firstPersonView;
+	//"WASD" movement while holding Right Click
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
+	if (App->input->GetKey(SDL_SCANCODE_S)  == KEY_REPEAT) newPos += Z* speed;
 
-		if (firstPersonView)
-		{
-			LOG("First Person ON");
-			App->editor->console_log.AddLog(__FILE__, __LINE__, "First Person ON");
-			Reference = Position - (Position * 0.01);
-		}
-		else
-		{
-			LOG("First Person OFF");
-			App->editor->console_log.AddLog(__FILE__, __LINE__, "First Person OFF");
-			Reference = float3(0.0f, 0.0f, 0.0f);
-		}
-	}
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
 
-	//if(App->input->GetMouseButton(SDL_MOUSEWHEEL) == KEY_REPEAT) newPos.z += speed;
-	//if(App->input->GetMouseButton(SDL_MOUSEWHEEL) == KEY_REPEAT) newPos.z -= speed;
+	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) newPos -= Y * speed;
+	if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT) newPos += Y * speed;
 
-	if (App->input->GetMouseZ() != 0 && App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT) newPos -= Z * speed * App->input->GetMouseZ();
+	// Mouse motion ----------------
 
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) newPos.z += speed;
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) newPos.z -= speed;
-
-
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) newPos.x -= speed;
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) newPos.x += speed;
 
 	Position += newPos;
 	Reference += newPos;
-
-	// Mouse motion ----------------
 
 	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
 	{

@@ -23,6 +23,9 @@ public:
 
 	C_Camera* cam;
 
+
+	
+
 	bool firstPersonView = false;
 
 private:

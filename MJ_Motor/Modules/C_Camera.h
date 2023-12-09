@@ -23,7 +23,6 @@ public:
 
 	float* GetViewMatrix();
 	float* GetProjectionMatrix();
-
 	void LookAt(const float3& target);
 
 	void OnGui();
