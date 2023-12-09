@@ -53,6 +53,7 @@ public:
 	CPlane Grid;
 
     GameObject* Root;
+    GameObject* Camera;
 	
 	//You won't need this after using Frustum
 	mat4x4 ProjectionMatrix;

@@ -16,6 +16,7 @@
 #pragma comment (lib, "Glew/libx86/glew32.lib")
 
 #include "ModuleEditor.h";
+#include "C_Camera.h"
 
 
 //===================================================
@@ -158,6 +159,11 @@ bool ModuleRenderer3D::Init()
 
 	App->editor->gameObjects[0] = Root;
 	dynamic_cast<C_Transform*>(Root->GetComponent(Component::TYPE::TRANSFORM))->SetTransform(pos, rot, scale);
+
+	Camera = new GameObject(Root, "Camera");
+
+	App->editor->gameObjects[1] = Camera;
+	dynamic_cast<C_Camera*>(App->editor->gameObjects[1]->CreateComponent(Component::TYPE::CAMERA));
 
 	//==============================================================================================================================================================
 

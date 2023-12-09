@@ -134,6 +134,11 @@ update_status ModuleEditor::PostUpdate(float dt)
 
                 ImGui::Text("\n");
 
+                if (ImGui::MenuItem(" Game"))
+                    showGame = !showGame;
+
+                ImGui::Text("\n");
+
                 if (ImGui::MenuItem(" Inspector"))
                     showInspector = !showInspector;
 
@@ -272,6 +277,10 @@ update_status ModuleEditor::PostUpdate(float dt)
         {
             ImGuiRenderWindow();
         }
+        if (showGame)
+        {
+            GameViewport();
+        }
        
         //ImGui Inspector Window
         if (showInspector)
@@ -361,6 +370,18 @@ void ModuleEditor::ImGuiRenderWindow()
     ImGui::End();
 }
 
+void ModuleEditor::GameViewport()
+{
+    ImGui::Begin("Game", &showGame, ImGuiWindowFlags_AlwaysAutoResize);
+    
+    float width = ImGui::GetContentRegionAvail().x;
+    float height = width * (9.0f / 16.0f);
+    ImGui::Image((ImTextureID)App->renderer3D->texColorBuffer, ImVec2(width, height), ImVec2(0, 1), ImVec2(1, 0));
+    
+    ImGui::End();
+
+}
+
 void ModuleEditor::ImGuiMainWindow() 
 {
 
@@ -396,7 +417,7 @@ void ModuleEditor::ImGuiMainWindow()
 
     ImGui::Text("\n");
 
-    if (ImGui::CollapsingHeader("Modules", NULL, ImGuiTreeNodeFlags_DefaultOpen))
+    if (ImGui::CollapsingHeader("Configuration", NULL, ImGuiTreeNodeFlags_DefaultOpen))
     {
         ImGui::Text("Renderer:");
         ImGui::Checkbox("VSYNC", &activateVSYNC);
@@ -623,6 +644,8 @@ void ModuleEditor::ImGuiLicenseWindow()
 
     ImGui::End();
 }
+
+
 
 
 void ModuleEditor::DisplayGameObjects(GameObject* game_object)

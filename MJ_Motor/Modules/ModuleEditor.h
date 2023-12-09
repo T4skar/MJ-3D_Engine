@@ -119,6 +119,8 @@ public:
 	void ImGuiCreditsWindow();
 	void ImGuiLicenseWindow();
 
+	void GameViewport();
+
 	//GameObjects
 	uint CreateGameObject(GameObject* parent, std::string name);
 
@@ -128,13 +130,14 @@ public:
 
 	//ImGui Tool Bar Window Booleans
 	bool showScene = true;
+	bool showGame = true;
 	bool showMain = true;
 	bool showInspector = true;
 	bool showConsole = true;
 	bool showAbout = false;
 	bool showHierarchy = true;
 	bool showCameraWindow = true;
-	bool show_AABB = true;
+	bool show_AABB = false;
 
 	//Inspector booleans
 	bool showCubeDirectMode = false;
@@ -142,9 +145,9 @@ public:
 
 	//Renderer booleans
 	bool activateVSYNC = true;
-	bool activateDepthTest = false;
+	bool activateDepthTest = true;
 	bool activateCullFace = true;
-	bool activateLighting = false;
+	bool activateLighting = true;
 	bool activateColorMaterial = true;
 
 	//Input booleans
