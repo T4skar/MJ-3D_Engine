@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleCamera3D.h"
+#include "C_Camera.h"
 #include "MathGeoLib/include/Math/Quat.h"
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -24,6 +25,9 @@ bool ModuleCamera3D::Start()
 {
 	LOG("Setting up the camera");
 	App->editor->console_log.AddLog(__FILE__, __LINE__, "Setting up the camera");
+
+	cam = new C_Camera(nullptr);
+	cam->frustum.pos = float3(0, 0, -10);
 
 	bool ret = true;
 

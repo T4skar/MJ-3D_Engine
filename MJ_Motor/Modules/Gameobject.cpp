@@ -58,7 +58,7 @@ Component* GameObject::CreateComponent(Component::TYPE type)
 		new_component = new C_Texture(this);
 		break;
 	case Component::TYPE::CAMERA:
-		new_component = new C_Camera(this);
+		new_component = new C_Camera(dynamic_cast<GameObject*>(this));
 		break;
 	default:
 		LOG("component type error");

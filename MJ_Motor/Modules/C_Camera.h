@@ -13,7 +13,9 @@
 class C_Camera : public Component
 {
 public:
-	C_Camera(GameObject* gameObject);
+
+	C_Camera(GameObject* game_object);
+	
 	~C_Camera();
 
 	void SetCam();
@@ -23,8 +25,6 @@ public:
 	float* GetProjectionMatrix();
 
 	void LookAt(const float3& target);
-
-	void TransformCam();
 
 	void OnGui();
 

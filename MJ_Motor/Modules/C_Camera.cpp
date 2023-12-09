@@ -12,12 +12,10 @@
 
 C_Camera::C_Camera(GameObject* gameObject) : Component(gameObject, TYPE::CAMERA)
 {
-	//App->camera->CalculateViewMatrix();
-	
-	go = nullptr;
-	printCount = 0;
-	SetCam();
-	InitFrameBuffer();
+    go = nullptr;
+    printCount = 0;
+    SetCam();
+    InitFrameBuffer();
 }
 
 C_Camera::~C_Camera()
@@ -28,6 +26,7 @@ C_Camera::~C_Camera()
 }
 void C_Camera::SetCam()
 {
+	go = nullptr;
 	frustum.type = FrustumType::PerspectiveFrustum;
 	frustum.nearPlaneDistance = 0.1f;
 	frustum.farPlaneDistance = 500.f;

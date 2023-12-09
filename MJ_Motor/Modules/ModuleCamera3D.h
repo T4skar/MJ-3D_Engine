@@ -1,6 +1,7 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
+#include "C_Camera.h"
 #include "MathGeoLib/include/Math/float3.h"
 #include "MathGeoLib/include/Math/float4x4.h"
 
@@ -19,6 +20,8 @@ public:
 	void LookAt(const float3& Spot);
 	void Move(const float3& Movement);
 	float* GetViewMatrix();
+
+	C_Camera* cam;
 
 	bool firstPersonView = false;
 
