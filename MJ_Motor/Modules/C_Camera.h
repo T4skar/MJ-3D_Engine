@@ -26,6 +26,7 @@ public:
 	void LookAt(const float3& target);
 
 	void OnGui();
+	bool ContainsAaBox(MeshStorer* refBox);
 
 
 	Frustum frustum;

@@ -443,7 +443,29 @@ void ModuleEditor::ImGuiMainWindow()
 
         ImGui::Text("\n");
     }
-
+    if (ImGui::CollapsingHeader("Camera"))
+    {
+        ImGui::Text("");
+        ImGui::Text("Rendered objects: %d", App->camera->cam->printCount);
+        ImGui::Text("");
+        if (ImGui::SliderInt("FOV", &App->camera->cam->cameraFOV, 5, 180)) {
+            App->camera->cam->frustum.verticalFov = App->camera->cam->cameraFOV * DEGTORAD;
+            App->camera->cam->frustum.horizontalFov = 2.0f * atanf(tanf(App->camera->cam->frustum.verticalFov / 2.0f) * 1.7f);
+        }
+        if (ImGui::Button("Reset FOV")) {
+            App->camera->cam->cameraFOV = 60.0f;
+            App->camera->cam->frustum.verticalFov = App->camera->cam->cameraFOV * DEGTORAD;
+            App->camera->cam->frustum.horizontalFov = 2.0f * atanf(tanf(App->camera->cam->frustum.verticalFov / 2.0f) * 1.7f);
+        }
+        ImGui::SliderFloat("Near Distance", &App->camera->cam->frustum.nearPlaneDistance, 0.1f, App->camera->cam->frustum.farPlaneDistance);
+        if (ImGui::Button("Reset Near Distance")) {
+            App->camera->cam->frustum.nearPlaneDistance = 0.1f;
+        }
+        ImGui::InputFloat("Far Distance", &App->camera->cam->frustum.farPlaneDistance);
+        if (ImGui::Button("Reset Far Distance")) {
+            App->camera->cam->frustum.farPlaneDistance = 500.f;
+        }
+    }
     if (ImGui::CollapsingHeader("Information"))
     {
         //Software versions

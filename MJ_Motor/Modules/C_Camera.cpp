@@ -106,17 +106,12 @@ void C_Camera::LookAt(const float3& target)
 
 void C_Camera::OnGui()
 {
-	if (ImGui::CollapsingHeader("Camera", ImGuiTreeNodeFlags_DefaultOpen))
+	if (ImGui::CollapsingHeader("Camera"))
 	{
-		ImGui::SliderFloat("Near Distance", &frustum.nearPlaneDistance, 0.1f, frustum.farPlaneDistance);
-		if (ImGui::Button("Reset Near Distance")) {
-			frustum.nearPlaneDistance = 0.1f;
-		}
+		ImGui::Text("");
+		ImGui::Text("Rendered objects: %d", printCount);
+		ImGui::Text("");
 
-		ImGui::InputFloat("Far Distance", &frustum.farPlaneDistance);
-		if (ImGui::Button("Reset Far Distance")) {
-			frustum.farPlaneDistance = 500.f;
-		}
 		if (ImGui::SliderInt("FOV", &cameraFOV, 5, 180)) {
 			frustum.verticalFov = cameraFOV * DEGTORAD;
 			frustum.horizontalFov = 2.0f * atanf(tanf(frustum.verticalFov / 2.0f) * 1.7f);
@@ -127,6 +122,51 @@ void C_Camera::OnGui()
 			frustum.verticalFov = cameraFOV * DEGTORAD;
 			frustum.horizontalFov = 2.0f * atanf(tanf(frustum.verticalFov / 2.0f) * 1.7f);
 		}
+
+
+		ImGui::SliderFloat("Near Distance", &frustum.nearPlaneDistance, 0.1f, frustum.farPlaneDistance);
+		if (ImGui::Button("Reset Near Distance")) {
+			frustum.nearPlaneDistance = 0.1f;
+		}
+
+		ImGui::InputFloat("Far Distance", &frustum.farPlaneDistance);
+		if (ImGui::Button("Reset Far Distance")) {
+			frustum.farPlaneDistance = 500.f;
+		}
+		ImGui::Text("");
+		if (ImGui::Button("Set Main Camera", ImVec2(120, 50))) {
+			App->renderer3D->Camera;
+		}
 	}
 }
 
+bool C_Camera::ContainsAaBox(MeshStorer* refBox)
+{
+	float3 vCorner[8];
+	int iTotalIn = 0;
+	refBox->globalAABB.GetCornerPoints(vCorner); 
+
+	Plane m_plane[6];
+	frustum.GetPlanes(m_plane);
+
+	for (int p = 0; p < 6; ++p) {
+		int iInCount = 8;
+		int iPtIn = 1;
+		for (int i = 0; i < 8; ++i) {
+			// test this point against the planes
+			if (m_plane[p].IsOnPositiveSide(vCorner[i])) 
+			{
+				iPtIn = 0;
+				--iInCount;
+			}
+		}
+		
+		if (iInCount == 0)
+			return false;
+		
+		iTotalIn += iPtIn;
+	}
+	
+	if (iTotalIn == 6)
+		return true;
+}
