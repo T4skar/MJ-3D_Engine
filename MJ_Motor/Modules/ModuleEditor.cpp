@@ -374,9 +374,14 @@ void ModuleEditor::GameViewport()
 {
     ImGui::Begin("Game", &showGame, ImGuiWindowFlags_AlwaysAutoResize);
     
-    float width = ImGui::GetContentRegionAvail().x;
-    float height = width * (9.0f / 16.0f);
-    ImGui::Image((ImTextureID)App->renderer3D->texColorBuffer, ImVec2(width, height), ImVec2(0, 1), ImVec2(1, 0));
+    ImVec2 WindowSize = ImGui::GetContentRegionAvail();
+
+    float aspectRatio = WindowSize.x / WindowSize.y;
+
+    App->renderer3D->mainCam->frustum.verticalFov= App->renderer3D->mainCam->cameraFOV * DEGTORAD;
+    App->renderer3D->mainCam->frustum.horizontalFov = 2.0f * atanf(tanf(App->renderer3D->mainCam->frustum.verticalFov / 2.0f) * aspectRatio);
+
+    ImGui::Image((ImTextureID)App->renderer3D->mainCam->cameraBuffer, WindowSize, ImVec2(0, 1), ImVec2(1, 0));
     
     ImGui::End();
 
@@ -428,6 +433,7 @@ void ModuleEditor::ImGuiMainWindow()
         ImGui::Checkbox("Lightning", &activateLighting);
         ImGui::Checkbox("Color Material", &activateColorMaterial);
         ImGui::SameLine();
+        ImGui::Checkbox("Wireframe", &activateWireframe);
         ImGui::Checkbox("Show AABB", &show_AABB); //need revision
 
         ImGui::Text("\n");

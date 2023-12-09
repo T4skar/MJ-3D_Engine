@@ -19,6 +19,8 @@
 
 #define MAX_LIGHTS 8
 
+class C_Camera;
+
 class ModuleRenderer3D : public Module
 {
 public:
@@ -54,6 +56,7 @@ public:
 
     GameObject* Root;
     GameObject* Camera;
+    C_Camera* mainCam;
 	
 	//You won't need this after using Frustum
 	mat4x4 ProjectionMatrix;

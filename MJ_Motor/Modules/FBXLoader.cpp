@@ -251,10 +251,10 @@ void MeshStorer::RenderMesh(const GLfloat* globalTransform, uint texID)
 {
 
 	//Wireframe mode
-	/*if (App->editorGui->wireframe)
+	if (App->editor->activateWireframe)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	else
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);*/
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 
 	//Enable/Disable lights

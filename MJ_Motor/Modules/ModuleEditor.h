@@ -144,6 +144,7 @@ public:
 	bool showCubeCheckers = false;
 
 	//Renderer booleans
+	bool activateWireframe = false;
 	bool activateVSYNC = true;
 	bool activateDepthTest = true;
 	bool activateCullFace = true;
