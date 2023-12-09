@@ -42,6 +42,8 @@ struct MeshStorer
 	float* vertex = nullptr;
 	GLuint id_texture;
 
+	const char* textures[9];
+
 	uint ID;
 
 	const char* bakerHouseTexPath = "Assets/BakerHouse/Baker_house.png";
@@ -50,6 +52,7 @@ struct MeshStorer
 	AABB localAABB;
 	AABB globalAABB;
 	OBB globalOBB;
+
 
 
 	//Methods
@@ -71,6 +74,8 @@ public:
 	static void FileLoader(const char* file_path);
 	static void RenderAll();
 	static void CleanUp();
+
+	static void SetUpMesh(MeshStorer* mesh);
 
 	static void GenerateMeshBuffer(MeshStorer* ourMesh);
 	static void GetNodeInfo(const aiScene* rootScene, aiNode* rootNode, GameObject* GameObgectFather);

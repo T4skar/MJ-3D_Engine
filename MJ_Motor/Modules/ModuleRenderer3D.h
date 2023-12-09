@@ -76,7 +76,8 @@ public:
 
     uint id_count = 0;
 
-    const char* file_path = "Assets/BakerHouse/BakerHouse.fbx";
+    const char* file_path = "Assets/Street2/street.fbx";
+    //const char* file_path = "Assets/BakerHouse/BakerHouse.fbx";
 
     //Chekers Texture
     GLubyte imageData[IMAGE_ROWS][IMAGE_COLS][3]; // Texture image data

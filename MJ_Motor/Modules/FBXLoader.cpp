@@ -6,8 +6,10 @@
 
 #include "GameObject.h"
 #include "C_Mesh.h"
+#include "C_Texture.h"
 
 vector <MeshStorer*>FBXLoader::meshesVector; 
+std::map<uint, GameObject*> game_objects;
 
 void FBXLoader::Debug()
 {
@@ -72,6 +74,18 @@ void FBXLoader::FileLoader(const char* file_path)
 					}
 				}
 			}
+	
+			ourMesh->textures[0] = "Assets/Street2/Building_V02_C.png";
+			ourMesh->textures[1] = "Assets/Street2/Building_V01_C.png";
+			ourMesh->textures[2] = "Assets/Street2/building05-_c.png";
+			ourMesh->textures[3] = "Assets/Street2/building03_c.png";
+			ourMesh->textures[4] = "Assets/Street2/building_025_c.png";
+			ourMesh->textures[5] = "Assets/Street2/building_016_c.png";
+			ourMesh->textures[6] = "Assets/Street2/building-06_-c.png";
+			ourMesh->textures[7] = "Assets/Street2/building-06_-c-.png";
+			ourMesh->textures[8] = "Assets/Street2/building-01_c.png";
+
+
 
 			ourMesh->ID = App->editor->CreateGameObject(FbxGameObject, scene->mRootNode->mChildren[i]->mName.C_Str());
 
@@ -79,8 +93,61 @@ void FBXLoader::FileLoader(const char* file_path)
 			dynamic_cast<C_Mesh*>(App->editor->gameObjects[ourMesh->ID]->CreateComponent(Component::TYPE::MESH))->SetMesh(ourMesh, scene->mRootNode->mChildren[i]->mName.C_Str());
 			GetNodeInfo(scene, scene->mRootNode->mChildren[i], App->editor->gameObjects[ourMesh->ID]);
 
-			//Load Texture
-			ourMesh->id_texture = TexLoader::LoadTexture(ourMesh->bakerHouseTexPath);
+			if (App->editor->gameObjects[ourMesh->ID]->name == "City_building_040" || App->editor->gameObjects[ourMesh->ID]->name == "City_building_039" || App->editor->gameObjects[ourMesh->ID]->name == "City_building_035" || App->editor->gameObjects[ourMesh->ID]->name == "City_building_031" || App->editor->gameObjects[ourMesh->ID]->name == "City_building_030" || App->editor->gameObjects[ourMesh->ID]->name == "City_building_028")
+			{
+				ourMesh->id_texture = TexLoader::LoadTexture(ourMesh->textures[1]);
+				dynamic_cast<C_Texture*>(App->editor->gameObjects[ourMesh->ID]->CreateComponent(Component::TYPE::TEXTURE))->SetTexture(ourMesh->textures[1]);
+			}
+			else if (App->editor->gameObjects[ourMesh->ID]->name == "City_building_041" || App->editor->gameObjects[ourMesh->ID]->name == "City_building_001")
+			{
+				ourMesh->id_texture = TexLoader::LoadTexture(ourMesh->textures[0]);
+				dynamic_cast<C_Texture*>(App->editor->gameObjects[ourMesh->ID]->CreateComponent(Component::TYPE::TEXTURE))->SetTexture(ourMesh->textures[0]);
+			}
+			else if (App->editor->gameObjects[ourMesh->ID]->name == "City_building_036")
+			{
+				ourMesh->id_texture = TexLoader::LoadTexture(ourMesh->textures[7]);
+				dynamic_cast<C_Texture*>(App->editor->gameObjects[ourMesh->ID]->CreateComponent(Component::TYPE::TEXTURE))->SetTexture(ourMesh->textures[7]);
+			}
+			else if (App->editor->gameObjects[ourMesh->ID]->name == "City_building_038" || App->editor->gameObjects[ourMesh->ID]->name == "City_building_037" || App->editor->gameObjects[ourMesh->ID]->name == "City_building_034" || App->editor->gameObjects[ourMesh->ID]->name == "City_building_026" || App->editor->gameObjects[ourMesh->ID]->name == "City_building_022")
+			{
+				ourMesh->id_texture = TexLoader::LoadTexture(ourMesh->textures[2]);
+				dynamic_cast<C_Texture*>(App->editor->gameObjects[ourMesh->ID]->CreateComponent(Component::TYPE::TEXTURE))->SetTexture(ourMesh->textures[2]);
+			}
+			else if (App->editor->gameObjects[ourMesh->ID]->name == "City_building_033" || App->editor->gameObjects[ourMesh->ID]->name == "City_building_013")
+			{
+				ourMesh->id_texture = TexLoader::LoadTexture(ourMesh->textures[6]);
+				dynamic_cast<C_Texture*>(App->editor->gameObjects[ourMesh->ID]->CreateComponent(Component::TYPE::TEXTURE))->SetTexture(ourMesh->textures[6]);
+			}
+			else if (App->editor->gameObjects[ourMesh->ID]->name == "City_building_024" || App->editor->gameObjects[ourMesh->ID]->name == "City_building_008")
+			{
+				ourMesh->id_texture = TexLoader::LoadTexture(ourMesh->textures[4]);
+				dynamic_cast<C_Texture*>(App->editor->gameObjects[ourMesh->ID]->CreateComponent(Component::TYPE::TEXTURE))->SetTexture(ourMesh->textures[4]);
+			}
+			else if (App->editor->gameObjects[ourMesh->ID]->name == "City_building_023" || App->editor->gameObjects[ourMesh->ID]->name == "City_building_011" || App->editor->gameObjects[ourMesh->ID]->name == "City_building_007")
+			{
+				ourMesh->id_texture = TexLoader::LoadTexture(ourMesh->textures[5]);
+				dynamic_cast<C_Texture*>(App->editor->gameObjects[ourMesh->ID]->CreateComponent(Component::TYPE::TEXTURE))->SetTexture(ourMesh->textures[5]);
+			}
+			else if (App->editor->gameObjects[ourMesh->ID]->name == "City_building_032" || App->editor->gameObjects[ourMesh->ID]->name == "City_building_014" || App->editor->gameObjects[ourMesh->ID]->name == "City_building_004")
+			{
+				ourMesh->id_texture = TexLoader::LoadTexture(ourMesh->textures[3]);
+				dynamic_cast<C_Texture*>(App->editor->gameObjects[ourMesh->ID]->CreateComponent(Component::TYPE::TEXTURE))->SetTexture(ourMesh->textures[3]);
+			}
+			else if (App->editor->gameObjects[ourMesh->ID]->name == "City_building_017")
+			{
+				ourMesh->id_texture = TexLoader::LoadTexture(ourMesh->textures[8]);
+				dynamic_cast<C_Texture*>(App->editor->gameObjects[ourMesh->ID]->CreateComponent(Component::TYPE::TEXTURE))->SetTexture(ourMesh->textures[8]);
+			}
+
+			ourMesh->GenerateLocalBoundingBox();
+
+
+			FBXLoader::SetUpMesh(ourMesh);  
+
+			
+
+			//Load Texture Baker house
+			//ourMesh->id_texture = TexLoader::LoadTexture(ourMesh->bakerHouseTexPath);
 
 			//Generate Buffer
 			FBXLoader::GenerateMeshBuffer(ourMesh);
@@ -244,6 +311,26 @@ void MeshStorer::RenderMesh(const GLfloat* globalTransform, uint texID)
 
 }
 
+void FBXLoader::SetUpMesh(MeshStorer* mesh)
+{
+	//Create vertices and indices buffers
+	glGenBuffers(1, (GLuint*)&(mesh->id_vertex));
+	glGenBuffers(1, (GLuint*)&(mesh->id_index));
+
+	//Bind and fill buffers
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->id_vertex);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * mesh->num_vertex * 5, mesh->vertex, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_index);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * mesh->num_index, mesh->index, GL_STATIC_DRAW);
+
+	//Unbind buffers
+	glDisableClientState(GL_VERTEX_ARRAY);
+
+	//Add mesh to meshes vector
+	meshesVector.push_back(mesh);
+}
+
 void MeshStorer::GenerateLocalBoundingBox()
 {
 
@@ -320,3 +407,5 @@ void FBXLoader::CleanUp()
 
 	meshesVector.clear();
 }
+
+
