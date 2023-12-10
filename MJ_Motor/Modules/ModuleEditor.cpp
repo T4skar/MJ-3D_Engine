@@ -648,10 +648,11 @@ void ModuleEditor::ImGuiCreditsWindow()
 
     ImGui::Text(" Controls: \n\n");
 
-    ImGui::BulletText(" Camera WASD movement \n");
+    ImGui::BulletText(" Camera WASD movement and QE for going up and down\n");
     ImGui::BulletText(" Alt + Left Click for mouse based view\n");
     ImGui::BulletText(" SPACE for first person view\n");
     ImGui::BulletText(" Alt + MouseWheel for zoom\n");
+    ImGui::BulletText(" F to center your view to the selected object\n");
   
     ImGui::Text("\n");
 
