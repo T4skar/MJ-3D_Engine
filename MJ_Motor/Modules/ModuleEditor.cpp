@@ -158,7 +158,7 @@ update_status ModuleEditor::PostUpdate(float dt)
                 ImGui::Text("\n");
 
                 if (ImGui::Button("Our GitHub")) {
-                    ::ShellExecuteA(NULL, "open", "https://github.com/JoanDamia/MJ-Motor", NULL, NULL, SW_SHOWDEFAULT);
+                    ::ShellExecuteA(NULL, "open", "https://github.com/T4skar/MJ-3D_Engine", NULL, NULL, SW_SHOWDEFAULT);
                 }
 
                 ImGui::Text("\n");
@@ -608,10 +608,13 @@ void ModuleEditor::ImGuiCreditsWindow()
 
     ImGui::Text("\n");
 
-    ImGui::Text(" MJ ENGINE");
+    ImGui::Text(" MJ-3D_Engine");
     ImGui::Text("\n");
-    ImGui::TextDisabled(" By Miguel Rodriguez and Joan Damia\n\n");
-
+    ImGui::TextDisabled(" By Albert Martin and Adria Ramirez fortked from other project: ");
+    if (ImGui::Button("Forked project")) {
+        ::ShellExecuteA(NULL, "open", "https://github.com/JoanDamia/MJ-Motor", NULL, NULL, SW_SHOWDEFAULT);
+    }
+    ImGui::Text("\n\n");
     ImGui::Text(" Engine made by two CITM students, capable of multible features like \n");
     ImGui::Text(" fbx rendering, drag and drop, camera movement and much more to come.\n\n");
 
@@ -619,7 +622,7 @@ void ModuleEditor::ImGuiCreditsWindow()
 
     ImGui::Text(" Features: \n\n");
 
-    ImGui::BulletText(" Fbx loader (Baker_house loaded at the start)\n");
+    ImGui::BulletText(" Fbx loader (Street environment_V01.FBX loaded at the start)\n");
     ImGui::BulletText(" Fbx Drag and Drop\n");
     ImGui::BulletText(" Texture loader\n");
     ImGui::BulletText(" ImGui menus and console Window\n");
@@ -629,7 +632,7 @@ void ModuleEditor::ImGuiCreditsWindow()
 
     ImGui::Text(" Controls: \n\n");
 
-    ImGui::BulletText(" Camera WASD movement while pressing right click\n");
+    ImGui::BulletText(" Camera WASD movement \n");
     ImGui::BulletText(" Alt + Left Click for mouse based view\n");
     ImGui::BulletText(" SPACE for first person view\n");
     ImGui::BulletText(" Alt + MouseWheel for zoom\n");
@@ -648,7 +651,7 @@ void ModuleEditor::ImGuiLicenseWindow()
 
     ImGui::Text(" MIT License");
     ImGui::Text("\n");
-    ImGui::Text(" Copyright (c) 2023 Miguel Rodriguez and Joan Damia\n\n");
+    ImGui::Text(" Copyright (c) 2023 Albert Martin and Adria Ramirez\n\n");
 
     ImGui::Text(" Permission is hereby granted, free of charge, to any person obtaining a copy\n");
     ImGui::Text(" of this software and associated documentation files (the 'Software'), to deal\n");
