@@ -144,6 +144,11 @@ update_status ModuleEditor::PostUpdate(float dt)
 
                 ImGui::Text("\n");
 
+                if (ImGui::MenuItem(" Assets"))
+                    showAssetsWindow = !showAssetsWindow;
+
+                ImGui::Text("\n");
+
                 if (ImGui::MenuItem(" Console"))
                     showConsole = !showConsole;
 
@@ -288,6 +293,10 @@ update_status ModuleEditor::PostUpdate(float dt)
             ImGuiInspectorWindow();
         }
 
+        if (showAssetsWindow)
+        {
+            AssetsWindow();
+        }
         //ImGui Console Window
         if (showConsole)
         {
@@ -385,6 +394,13 @@ void ModuleEditor::GameViewport()
     
     ImGui::End();
 
+}
+
+void ModuleEditor::AssetsWindow()
+{
+    ImGui::Begin("Assets", &showAssetsWindow, ImGuiWindowFlags_AlwaysAutoResize);
+
+    ImGui::End();
 }
 
 void ModuleEditor::ImGuiMainWindow() 

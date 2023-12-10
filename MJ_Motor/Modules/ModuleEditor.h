@@ -118,8 +118,8 @@ public:
 	void ImGuiInspectorWindow();
 	void ImGuiCreditsWindow();
 	void ImGuiLicenseWindow();
-
 	void GameViewport();
+	void AssetsWindow();
 
 	//GameObjects
 	uint CreateGameObject(GameObject* parent, std::string name);
@@ -137,6 +137,7 @@ public:
 	bool showAbout = false;
 	bool showHierarchy = true;
 	bool showCameraWindow = true;
+	bool showAssetsWindow = true;
 	bool show_AABB = false;
 
 	//Inspector booleans

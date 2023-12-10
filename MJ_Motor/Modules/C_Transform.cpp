@@ -71,7 +71,19 @@ void C_Transform::Update()
 	// -------------------------------------------------------------------------------------------------------------- Define the Local Position
 	transform.localPos = float4x4::FromTRS(transform.position, transform.quatRotation, transform.scale);
 
-
+	//Focus on the origin
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) 
+	{
+		if (App->editor->gameobject_selected) 
+		{
+			float3 target = App->editor->gameobject_selected->transform->go->transform->transform.position;
+			App->camera->LookAt(target);
+		}
+		else {
+			App->camera->LookAt(float3( 0, 0, 0));
+		}
+	}
+		
 
 	if (this->go->id > 0)
 	{
