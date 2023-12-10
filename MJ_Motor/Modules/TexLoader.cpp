@@ -14,7 +14,7 @@ int memLeak = 0;
 
 GLuint TexLoader::LoadTexture(char const* thefilename)
 {
-	if (memLeak<2)
+	if (memLeak<40)
 	{
 		ilInit();
 		iluInit();

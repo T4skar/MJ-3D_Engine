@@ -353,7 +353,7 @@ void MeshStorer::GenerateGlobalBoundingBox()
 {
 	// Generate global OBB
 	globalOBB = localAABB;
-	//globalOBB.Transform(App->scene_intro->gameObjects[ID]->transform->GetGlobalMatrix());
+	globalOBB.Transform(App->editor->gameObjects[ID]->transform->GetGlobalMatrix());
 
 	// Generate global AABB
 	globalAABB.SetNegativeInfinity();
