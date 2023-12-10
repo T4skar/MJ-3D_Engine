@@ -1,15 +1,18 @@
-# MJ Engine
+# MJ-3D_Engine
 
-Project GitHub page: (https://github.com/JoanDamia/MJ-Motor)
+Project GitHub page: (https://github.com/T4skar/MJ-3D_Engine)
 
 
 3D engine made by:
 
-Miguel Rodríguez. GitHub: (https://github.com/Bankaster)
+Albert Martin. GitHub: (https://github.com/T4skar)
 
-Joan Damià. GitHub: (https://github.com/JoanDamia)
+Adrian Ramirez. GitHub: (https://github.com/AdriRamirez)
 
-Engine made by two CITM students, capable of multible features like fbx rendering, drag and drop, camera movement and much more to come.
+Fortked from other project: 
+Project GitHub page: (https://github.com/JoanDamia/MJ-Motor)
+
+Engine made by two CITM students, capable of multible features like fbx rendering, drag and drop, camera movement, gameObjects and much more to come.
 
 
 ## Features:
@@ -19,15 +22,18 @@ Engine made by two CITM students, capable of multible features like fbx renderin
 - Texture loader
 - ImGui menus and console Window
 - Unity-like camera
+- GameObjects
+- Frustum
 
 
 
 ## Controls:
 
-- Camera WASD movement while pressing right click
+- Camera WASD movement and QE for going up and down
 - Alt + Left Click for mouse based view
 - SPACE for first person view
 - Alt + MouseWheel for zoom
+- F to center your view to the selected object
 
 
 
